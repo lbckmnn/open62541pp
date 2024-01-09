@@ -16,15 +16,18 @@ using namespace opcua;
 
 TEST_CASE("Server constructors") {
     SUBCASE("Construct") {
-        Server server;
+        Server server1;
+        Server server2(Logger{});
     }
 
     SUBCASE("Construct with custom port") {
-        Server server(4850);
+        Server server1(4850);
+        Server server2(Logger{}, 4850);
     }
 
     SUBCASE("Custom port and certificate") {
-        Server server(4850, ByteString("certificate"));
+        Server server1(4850, ByteString("certificate"));
+        Server server2(Logger{}, 4850, ByteString("certificate"));
     }
 }
 

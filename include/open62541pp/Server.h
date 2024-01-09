@@ -48,6 +48,17 @@ public:
      */
     explicit Server(uint16_t port = 4840, ByteString certificate = {});
 
+    /**
+     * Create server with default configuration (no encryption).
+     * Security policies:
+     * - [None](http://opcfoundation.org/UA/SecurityPolicy#None)
+     *
+     * @param logger custom logging function
+     * @param port Port number
+     * @param certificate Optional X.509 v3 certificate in `DER` encoded format
+     */
+    explicit Server(Logger logger, uint16_t port = 4840, ByteString certificate = {});
+
 #ifdef UA_ENABLE_ENCRYPTION
     /**
      * Create server with encryption enabled (PKI).
@@ -147,6 +158,7 @@ public:
     ServerContext& getContext() noexcept;
 
 private:
+    void init(uint16_t port, ByteString certificate);
     class Connection;
     std::shared_ptr<Connection> connection_;
 };
